@@ -1,0 +1,56 @@
+name: Latest blog post workflow
+on:
+  schedule:
+    # Runs every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update-readme-with-blog:
+    name: Update this repos README with latest blog posts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rozy-ai/readme@master
+        with:
+          max_post_count: "4"
+          feed_list: "https://dev.to/feed/itszed0"
+In the above code, we’ve defined a workflow with name as “Latest blog post workflow”, which runs on a schedule mentioned in the cron field. 0 * * * * is a POSIX cron syntax, meaning that the schedule is to run at the 0th minute every hour.
+
+workflow_dispatch: allows the user to trigger the workflow manually. jobs let us define one or more jobs that will run when the workflow is executed. In our case, we have one job — that is, update-readme-with-blog — which runs-on an Ubuntu environment machine hosted by GitHub.
+
+steps define a set of actions or commands to be executed. We’ve defined two actions under steps: actions/checkout@v2 and gautamkrishnar/blog-post-workflow@master. The latter takes two input parameters defined under the with field. max_post_count defines the maximum number of posts to show in the README, feed_list is a comma-separated RSS feed of URLs for different blogging platforms.
+
+In this tutorial, we’ve fetched blogs from the dev.to platform. For the list of all supported platforms, check this documentation.
+
+To learn more about GitHub workflow syntax, check out this Workflow Syntax documentation.
+
+Replace the feed_list with your RSS feed URLs and click on the Commit new file button. This will successfully create the workflow. It will fetch new blog posts from dev.to and add them to your README.md file every hour.
+
+To trigger the workflow manually, follow these steps:
+
+In your repository, go to the Actions tab.
+Under All workflows, click on Latest blog post workflow.
+In the Run workflow dropdown, click on the Run workflow button. The workflow will start executing.
+Run Blog post workflow
+Go to your GitHub profile page, and under the “Blog Posts” section you’ll see a list of all the blog posts from the blogging platforms defined in the blog-post-workflow.yml file. Below is the output for "https://dev.to/feed/itszed0" in the feed_list.
+Blog posts
+Note that the user itsZed0 has one article titled “Test Post” at dev.to, which can be found here. Hence, the workflow fetches that one article and displays it in the GitHub profile README.
+
+The final GitHub profile is pictured below.
+
+GitHub profile readme GIF
+
+Conclusion
+In this tutorial, we’ve learned what a GitHub profile README is and how to:
+
+create a GitHub profile README
+add GIFs, descriptions, skills
+add GitHub Streak Stats and GitHub Readme Stats
+create a GitHub workflow to fetch the latest published blog posts
+I hope this tutorial inspires you to create an amazing GitHub profile README. Also, you can go through these open-source projects that’ll let you add some more cool features to your GitHub profile README:
+
+Display weekly Dev metrics
+Display Spotify recently played song card
+Show a new programming joke every day
+Share This Article
